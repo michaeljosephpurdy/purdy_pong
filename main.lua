@@ -1,31 +1,12 @@
-player = {};
+class = require"libraries/middleclass"
+require "src/Player";
 
 function love.load()
-  player.x = 20;
-  player.y = 20;
-  player.speed = 20;
-  player.moveLeft = false;
-  player.moveRight = false;
-  player.moveUp = false;
-  player.moveDown = false;
+  player = Player:new(20, 20)
 end
 
 function love.update(dt)
-  if player.moveLeft then
-    player.x = player.x - player.speed * dt;
-  end
-
-  if player.moveRight then
-    player.x = player.x + player.speed * dt;
-  end
-
-  if player.moveDown then
-    player.y = player.y + player.speed * dt;
-  end
-
-  if player.moveUp then
-    player.y = player.y - player.speed * dt;
-  end
+  player:update(dt)
 end
 
 function love.draw()
@@ -33,37 +14,12 @@ function love.draw()
 end
 
 function love.keypressed(key)
-  if "a" == key then
-    player.moveLeft = true;
-  end
-
-  if "d" == key then
-    player.moveRight = true;
-  end
-
-  if "w" == key then
-    player.moveUp = true;
-  end
-
-  if "s" == key then
-    player.moveDown = true;
+  player:pressedKeys(key)
+  if "q" == key then
+    love.event.quit()
   end
 end
 
 function love.keyreleased(key)
-  if "a" == key then
-    player.moveLeft = false;
-  end
-
-  if "d" == key then
-    player.moveRight = false;
-  end
-
-  if "w" == key then
-    player.moveUp = false;
-  end
-
-  if "s" == key then
-    player.moveDown = false;
-  end
+  player:releasedKeys(key)
 end
