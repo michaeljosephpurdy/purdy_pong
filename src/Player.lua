@@ -1,65 +1,46 @@
-Player = class('Player')
+local class = require 'middleclass'
+Player = class('Player', 'Entity')
 
 function Player:initialize(x, y)
-  self.x = x;
-  self.y = y;
-  self.speed = 20;
-  self.moveLeft = false;
-  self.moveRight = false
-  self.moveUp = false;
-  self.moveDown = false;
+  Entity.initialize(self, 20, 20);
 end
 
 function Player:update(dt)
-  if player.moveLeft then
-    player.x = player.x - player.speed * dt;
-  end
-
-  if player.moveRight then
-    player.x = player.x + player.speed * dt;
-  end
-
-  if player.moveUp then
-    player.y = player.y - player.speed * dt;
-  end
-
-  if player.moveDown then
-    player.y = player.y + player.speed * dt;
-  end
+  Entity.update(self, dt)
 end
 
 function Player:pressedKeys(key)
   if "a" == key then
-    player.moveLeft = true;
+    self.moveLeft = true;
   end
 
   if "d" == key then
-    player.moveRight = true;
+    self.moveRight = true;
   end
 
   if "w" == key then
-    player.moveUp = true;
+    self.moveUp = true;
   end
 
   if "s" == key then
-    player.moveDown = true;
+    self.moveDown = true;
   end
 end
 
 function Player:releasedKeys(key)
   if "a" == key then
-    player.moveLeft = false
+    self.moveLeft = false
   end
 
   if "d" == key then
-    player.moveRight = false;
+    self.moveRight = false;
   end
 
   if "w" == key then
-    player.moveUp = false;
+    self.moveUp = false;
   end
 
   if "s" == key then
-    player.moveDown = false;
+    self.moveDown = false;
   end
 end

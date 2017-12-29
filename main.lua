@@ -1,5 +1,6 @@
-class = require"libraries/middleclass"
-require "src/Player";
+class = require "libraries/middleclass"
+require "src/Entity"
+require "src/Player"
 
 function love.load()
   player = Player:new(20, 20)
@@ -10,7 +11,7 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.print("Hello world!", player.x, player.y);
+	love.graphics.print("Hello world!", player.x, player.y)
 end
 
 function love.keypressed(key)
