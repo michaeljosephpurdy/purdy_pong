@@ -6,7 +6,7 @@ function Player:initialize(x, y)
 end
 
 function Player:update(dt)
-  Entity.update(self, dt
+  Entity.update(self, dt)
 end
 
 function Player:pressedKeys(key)
