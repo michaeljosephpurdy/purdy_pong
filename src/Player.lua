@@ -1,12 +1,11 @@
-local class = require 'middleclass'
-Player = class('Player', 'Entity')
+local Entity = require 'Entity'
 
-function Player:initialize(x, y)
-  Entity.initialize(self, 20, 20)
+function Player:new(x, y)
+  self = Entity:new(x, y)
+  
 end
 
 function Player:update(dt)
-  Entity.update(self, dt)
 end
 
 function Player:pressedKeys(key)

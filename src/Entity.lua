@@ -1,14 +1,15 @@
-local class = require 'middleclass'
-Entity = class('Entity')
+local Entity = {}
 
-function Entity:initialize(x, y)
+function Entity:new(x, y)
+  self.__index = self
   self.x = x
   self.y = y
-  self.speed = 20
+  self.speed= 20
   self.moveLeft = false
   self.moveRight = false
   self.moveUp = false
   self.moveDown = false
+  return self
 end
 
 function Entity:update(dt)
@@ -28,3 +29,5 @@ function Entity:update(dt)
     self.y = self.y + self.speed * dt
   end
 end
+
+return Entity
