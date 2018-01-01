@@ -1,15 +1,17 @@
 local Entity = {}
+Entity.__index = Entity
 
 function Entity:new(x, y)
-  self.__index = self
-  self.x = x
-  self.y = y
-  self.speed= 20
-  self.moveLeft = false
-  self.moveRight = false
-  self.moveUp = false
-  self.moveDown = false
-  return self
+  local entity = {}
+  setmetatable(entity, Entity)
+  entity.x = x
+  entity.y = y
+  entity.speed= 20
+  entity.moveLeft = false
+  entity.moveRight = false
+  entity.moveUp = false
+  entity.moveDown = false
+  return entity
 end
 
 function Entity:update(dt)
