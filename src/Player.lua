@@ -1,45 +1,33 @@
-local Entity = require 'Entity'
+Player = Object:extend()
 
-function Player:new(x, y)
-  self = Entity:new(x, y)
-  
+function Player:new(color, x, y, left, right)
+  self:setColor(color)
+  self.x = x
+  self.y = y
+  self.left = left
+  self.right = right
+  self.width = 120
+  self.height = 40
+  self.speed = 200
+end
+
+function Player:setColor(color)
+  if "red" == color then
+    self.color = {255, 0, 0, 255}
+  elseif "blue" == color then
+    self.color = {0, 0, 255, 255}
+  end
 end
 
 function Player:update(dt)
-end
-
-function Player:pressedKeys(key)
-  if "a" == key then
-    self.moveLeft = true
-  end
-
-  if "d" == key then
-    self.moveRight = true
-  end
-
-  if "w" == key then
-    self.moveUp = true
-  end
-
-  if "s" == key then
-    self.moveDown = true
+  if love.keyboard.isDown(self.left) then
+    self.x = self.x - self.speed * dt
+  elseif love.keyboard.isDown(self.right) then
+    self.x = self.x + self.speed * dt
   end
 end
 
-function Player:releasedKeys(key)
-  if "a" == key then
-    self.moveLeft = false
-  end
-
-  if "d" == key then
-    self.moveRight = false
-  end
-
-  if "w" == key then
-    self.moveUp = false
-  end
-
-  if "s" == key then
-    self.moveDown = false
-  end
+function Player:draw()
+  love.graphics.setColor(self.color)
+  love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end

@@ -1,26 +1,27 @@
-class = require "libraries/middleclass"
-require "src/Entity"
-require "src/Player"
-
 function love.load()
-  player = Player:new(20, 20)
+  Object = require "libraries.classic"
+  require "src.Player"
+  require "src.Entity"
+  
+  redPlayer = Player("red", 20, 20, "left", "right")
+  bluePlayer = Player("blue", 20, 330, "a", "d")
 end
 
 function love.update(dt)
-  player:update(dt)
+  Entities:update(dt)
+  redPlayer:update(dt)
+  bluePlayer:update(dt)
 end
 
 function love.draw()
-	love.graphics.print("Hello world!", player.x, player.y)
+  Entities:draw()
+  redPlayer:draw()
+  bluePlayer:draw()
 end
 
 function love.keypressed(key)
-  player:pressedKeys(key)
-  if "q" == key then
+  if "q" == key or
+     "escape" == key then
     love.event.quit()
   end
-end
-
-function love.keyreleased(key)
-  player:releasedKeys(key)
 end
