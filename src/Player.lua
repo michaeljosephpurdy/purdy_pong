@@ -3,6 +3,7 @@ Player = Object:extend()
 function Player:new(color, x, y, left, right)
   self.windowWidth = love.graphics.getWidth()
   self.windowHeight = love.graphics.getHeight()
+  self.name = color
   self:setColor(color)
   self.x = x
   self.y = y
@@ -39,16 +40,47 @@ function Player:handleTouchInputs(dt)
     
     for i, id in ipairs(touches) do
       local x, y = love.touch.getPosition(id)
-      if x > 0 and x < self.windowWidth / 2
-        and y > 0 and y < self.windowHeight / 2 then
-          self:moveLeft(dt)
+      if "red" == self.name then
+        handleTopInputs(dt, x, y)
       end
-      if x > self.windowWidth / 2 and x < self.windowWidth
-        and y > 0 and y < self.windowHeight / 2 then
-          self:moveRight(dt)
+      if "blue" == self.name then
+        handleBottomInputs(dt, x, y)
       end
-        
     end
+end
+
+function Player:handleTopInputs(dt, x, y)
+  if touchInTopLeftQuadrant(x, y) then
+    self:moveLeft(dt)
+  end
+  if touchInTopRightQuadrant(x, y) then
+    self:moveRight(dt)
+  end
+end
+
+function Player:handleBottomInputs(dt, x, y)
+  if touchInBottomLeftQuadrant(x, y) then
+    self:moveLeft(dt)
+  end
+  if touchInBottomRightQuadrant(x, y) then
+    self:moveRight(dt)
+  end
+end
+
+function touchInTopLeftQuadrant(x, y)
+  return x > 0 and x < self.windowWidth / 2 and y > 0 and y < self.windowHeight / 2
+end
+
+function touchInTopRightQuadrant(x, y)
+  return x > self.windowWidth / 2 and x < self.windowWidth and y > 0 and y < self.windowHeight / 2
+end
+
+function touchInBottomLeftQuadrant(x, y)
+  return x > 0 and x < self.windowWidth /2 and y > self.windowHeight / 2 and y < self.windowHeight
+end
+
+function touchInBottomRightQuadrant(x, y)
+  return x > self.windowWidth / 2 and x < self.windowWidth and y > self.windowHeight / 2 and y < self.windowHeight
 end
 
 function Player:moveLeft(dt)
