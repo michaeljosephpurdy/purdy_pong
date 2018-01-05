@@ -1,10 +1,11 @@
 function love.load()
   Object = require "libraries.classic"
-  Utils = require "src.Utils"
+  require "src.Utils"
   require "src.Player"
+  utils = Utils()
   
-  redPlayer = Player("red", 20, 20, "left", "right")
-  bluePlayer = Player("blue", 20, 330, "a", "d")
+  redPlayer = Player("red", utils.midX, utils:getRedStart(), "left", "right")
+  bluePlayer = Player("blue", utils.midX, utils:getBlueStart(), "a", "d")
 end
 
 function love.update(dt)

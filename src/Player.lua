@@ -1,16 +1,16 @@
 Player = Object:extend()
 
 function Player:new(color, x, y, left, right)
-  self.windowWidth = love.graphics.getWidth()
-  self.windowHeight = love.graphics.getHeight()
+  self.windowWidth = utils.windowWidth
+  self.windowHeight = utils.windowWidth
   self.name = color
   self:setColor(color)
   self.x = x
   self.y = y
   self.left = left
   self.right = right
-  self.width = 120
-  self.height = 40
+  self.width = utils:getPaddleWidth()
+  self.height = utils:getPaddleHeight()
   self.speed = 200
 end
 
@@ -41,33 +41,33 @@ function Player:handleTouchInputs(dt)
     for i, id in ipairs(touches) do
       local x, y = love.touch.getPosition(id)
       if "red" == self.name then
-        handleTopInputs(dt, x, y)
+        self:handleTopInputs(dt, x, y)
       end
       if "blue" == self.name then
-        handleBottomInputs(dt, x, y)
+        self:handleBottomInputs(dt, x, y)
       end
     end
 end
 
 function Player:handleTopInputs(dt, x, y)
   if "red" == self.name then
-  if Utils:isInTopLeftQuadrant(x, y) then
-    self:moveLeft(dt)
-  end
-  if Utils:isInTopRightQuadrant(x, y) then
-    self:moveRight(dt)
-  end
+    if utils:isInTopLeftQuadrant(x, y) then
+      self:moveLeft(dt)
+    end
+    if utils:isInTopRightQuadrant(x, y) then
+      self:moveRight(dt)
+    end
   end
 end
 
 function Player:handleBottomInputs(dt, x, y)
   if "blue" == self.name then
-  if Utils:isInBottomLeftQuadrant(x, y) then
-    self:moveLeft(dt)
-  end
-  if Utils:isInBottomRightQuadrant(x, y) then
-    self:moveRight(dt)
-  end
+    if utils:isInBottomLeftQuadrant(x, y) then
+      self:moveLeft(dt)
+    end
+    if utils:isInBottomRightQuadrant(x, y) then
+      self:moveRight(dt)
+    end
   end
 end
 

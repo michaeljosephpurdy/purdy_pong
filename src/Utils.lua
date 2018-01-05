@@ -5,46 +5,54 @@ function Utils:new()
   self.windowHeight = love.graphics.getHeight()
   self.minX = 0
   self.minY = 0
-  self.midX = windowWidth / 2
-  self.midY = windowWidth / 2
+  self.midX = self.windowWidth / 2
+  self.midY = self.windowWidth / 2
   self.maxX = self.windowWidth
   self.maxY = self.windowHeight
 end
 
 function Utils:isInTopLeftQuadrant(x, y)
-  if notOffScreen(x, y) then
-    if x <= self.midX and y <= self.midY then
+  if self:notOffScreen(x, y) then
+    if x < self.midX and y < self.midY then
       return true
     end
-    end
+  end
   return false
 end
 
 function Utils:isInTopRightQuadrant(x, y)
-  if notOffScreen(x, y) then
-    if x >= self.midX and y <= self.midY then
+  if self:notOffScreen(x, y) then
+    if x > self.midX and y < self.midY then
       return true
     end
-    end
+  end
   return false
 end
 
 function Utils:isInBottomLeftQuadrant(x, y)
-  if notOffScreen(x, y) then
-    if x <= self.midX and y > self.midY then
+  if self:notOffScreen(x, y) then
+    if x < self.midX and y > self.midY then
       return true
     end
-    end
+  end
   return false
 end
 
 function Utils:isInBottomRightQuadrant(x, y)
-  if notOffScreen(x, y) then
-    if x > self.midX and y >= self.midY then
+  if self:notOffScreen(x, y) then
+    if x > self.midX and y > self.midY then
       return true
     end
-    end
+  end
   return false
+end
+
+function Utils:getRedStart()
+  return self.windowHeight / 10
+end
+
+function Utils:getBlueStart()
+  return self.windowHeight / 10 - self.windowHeight
 end
 
 function Utils:getPaddleHeight()
