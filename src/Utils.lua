@@ -1,12 +1,11 @@
 Utils = Object:extend()
 
 function Utils:new()
-  self.windowWidth = love.graphics.getWidth()
-  self.windowHeight = love.graphics.getHeight()
+  self.windowWidth, self.windowHeight = love.graphics.getDimensions()
   self.minX = 0
   self.minY = 0
   self.midX = self.windowWidth / 2
-  self.midY = self.windowWidth / 2
+  self.midY = self.windowHeight / 2
   self.maxX = self.windowWidth
   self.maxY = self.windowHeight
 end
@@ -48,11 +47,11 @@ function Utils:isInBottomRightQuadrant(x, y)
 end
 
 function Utils:getRedStart()
-  return self.windowHeight / 10
+  return self:getPaddleHeight()
 end
 
 function Utils:getBlueStart()
-  return self.windowHeight / 10 - self.windowHeight
+  return self.windowHeight - self:getPaddleHeight() * 2
 end
 
 function Utils:getPaddleHeight()

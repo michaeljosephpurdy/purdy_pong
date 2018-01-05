@@ -2,7 +2,7 @@ Player = Object:extend()
 
 function Player:new(color, x, y, left, right)
   self.windowWidth = utils.windowWidth
-  self.windowHeight = utils.windowWidth
+  self.windowHeight = utils.windowHeight
   self.name = color
   self:setColor(color)
   self.x = x
@@ -11,7 +11,7 @@ function Player:new(color, x, y, left, right)
   self.right = right
   self.width = utils:getPaddleWidth()
   self.height = utils:getPaddleHeight()
-  self.speed = 200
+  self.speed = utils.windowWidth / self.width * 50
 end
 
 function Player:setColor(color)

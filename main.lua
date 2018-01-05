@@ -24,3 +24,7 @@ function love.keypressed(key)
     love.event.quit()
   end
 end
+
+love.resize = function(w, h)
+  push:resize(w, h)
+end
