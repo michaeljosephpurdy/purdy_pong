@@ -50,37 +50,25 @@ function Player:handleTouchInputs(dt)
 end
 
 function Player:handleTopInputs(dt, x, y)
-  if touchInTopLeftQuadrant(x, y) then
+  if "red" == self.name then
+  if Utils:isInTopLeftQuadrant(x, y) then
     self:moveLeft(dt)
   end
-  if touchInTopRightQuadrant(x, y) then
+  if Utils:isInTopRightQuadrant(x, y) then
     self:moveRight(dt)
+  end
   end
 end
 
 function Player:handleBottomInputs(dt, x, y)
-  if touchInBottomLeftQuadrant(x, y) then
+  if "blue" == self.name then
+  if Utils:isInBottomLeftQuadrant(x, y) then
     self:moveLeft(dt)
   end
-  if touchInBottomRightQuadrant(x, y) then
+  if Utils:isInBottomRightQuadrant(x, y) then
     self:moveRight(dt)
   end
-end
-
-function touchInTopLeftQuadrant(x, y)
-  return x > 0 and x < self.windowWidth / 2 and y > 0 and y < self.windowHeight / 2
-end
-
-function touchInTopRightQuadrant(x, y)
-  return x > self.windowWidth / 2 and x < self.windowWidth and y > 0 and y < self.windowHeight / 2
-end
-
-function touchInBottomLeftQuadrant(x, y)
-  return x > 0 and x < self.windowWidth /2 and y > self.windowHeight / 2 and y < self.windowHeight
-end
-
-function touchInBottomRightQuadrant(x, y)
-  return x > self.windowWidth / 2 and x < self.windowWidth and y > self.windowHeight / 2 and y < self.windowHeight
+  end
 end
 
 function Player:moveLeft(dt)

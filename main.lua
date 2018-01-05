@@ -1,5 +1,6 @@
 function love.load()
   Object = require "libraries.classic"
+  Utils = require "src.Utils"
   require "src.Player"
   
   redPlayer = Player("red", 20, 20, "left", "right")
