@@ -1,8 +1,6 @@
 Player = Object:extend()
 
 function Player:new(color, x, y, left, right)
-  self.windowWidth = utils.windowWidth
-  self.windowHeight = utils.windowHeight
   self.name = color
   self:setColor(color)
   self.x = x
@@ -27,6 +25,11 @@ function Player:update(dt)
   self:handleTouchInputs(dt)
 end
 
+function Player:draw()
+  love.graphics.setColor(self.color)
+  love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+end
+
 function Player:handleKeyboardInputs(dt)
   if love.keyboard.isDown(self.left) then
     self:moveLeft(dt)
@@ -35,11 +38,27 @@ function Player:handleKeyboardInputs(dt)
   end
 end
 
+function Player:moveLeft(dt)
+  if self.x >= 0 then
+    self.x = self.x - self.speed * dt
+  end
+end
+
+function Player:moveRight(dt)
+  if self.x + self.width <= utils.windowWidth
+   then
+    self.x = self.x + self.speed * dt
+  end
+end
+
 function Player:handleTouchInputs(dt)
     local touches = love.touch.getTouches()
     
     for i, id in ipairs(touches) do
       local x, y = love.touch.getPosition(id)
+      if utils:offScreen(x, y) then
+        break
+      end
       if "red" == self.name then
         self:handleTopInputs(dt, x, y)
       end
@@ -69,22 +88,4 @@ function Player:handleBottomInputs(dt, x, y)
       self:moveRight(dt)
     end
   end
-end
-
-function Player:moveLeft(dt)
-  if self.x >= 0 then
-    self.x = self.x - self.speed * dt
-  end
-end
-
-function Player:moveRight(dt)
-  if self.x + self.width <= self.windowWidth
-   then
-    self.x = self.x + self.speed * dt
-  end
-end
-
-function Player:draw()
-  love.graphics.setColor(self.color)
-  love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end

@@ -10,40 +10,44 @@ function Utils:new()
   self.maxY = self.windowHeight
 end
 
-function Utils:isInTopLeftQuadrant(x, y)
-  if self:notOffScreen(x, y) then
-    if x < self.midX and y < self.midY then
-      return true
-    end
-  end
-  return false
+function Utils:offScreen(x, y)
+ return (not self:notOffScreen(x, y))
 end
 
+function Utils:notOffScreen(x, y)
+  return x >= self.minX and x <= self.maxX and y >= self.minY and y <= self.maxY
+end
+
+function Utils:isInTopLeftQuadrant(x, y)
+  return self:isOnLeftSide(x) and self:isOnTopSide(y)
+end 
+
 function Utils:isInTopRightQuadrant(x, y)
-  if self:notOffScreen(x, y) then
-    if x > self.midX and y < self.midY then
-      return true
-    end
-  end
-  return false
+  return self:isOnRightSide(x) and self:isOnTopSide(y)
 end
 
 function Utils:isInBottomLeftQuadrant(x, y)
-  if self:notOffScreen(x, y) then
-    if x < self.midX and y > self.midY then
-      return true
-    end
-  end
-  return false
+  return self:isOnLeftSide(x) and self:isOnBottomSide(y)
 end
 
 function Utils:isInBottomRightQuadrant(x, y)
-  if self:notOffScreen(x, y) then
-    if x > self.midX and y > self.midY then
-      return true
-    end
-  end
-  return false
+  return self:isOnRightSide(x) and self:isOnBottomSide(y)
+end
+
+function Utils:isOnLeftSide(x)
+  return (x < self.midX)
+end
+
+function Utils:isOnRightSide(x)
+  return (x > self.midX)
+end
+
+function Utils:isOnTopSide(y)
+  return (y < self.midY)
+end
+
+function Utils:isOnBottomSide(y)
+  return (y > self.midY)
 end
 
 function Utils:getRedStart()
@@ -60,14 +64,4 @@ end
 
 function Utils:getPaddleWidth()
   return self.windowWidth / 3
-end
-
-function Utils:notOffScreen(x, y)
-  if x >= self.minX and 
-     x <= self.maxX and 
-     y >= self.minY and 
-     y <= self.maxY then
-    return true
-  end
-  return false
 end
