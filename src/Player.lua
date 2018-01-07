@@ -10,6 +10,7 @@ function Player:new(color, x, y, left, right)
   self.width = utils:getPaddleWidth()
   self.height = utils:getPaddleHeight()
   self.speed = utils.windowWidth / self.width * 50
+  self.collidePoint = self.x + (self.width - self.x)
 end
 
 function Player:setColor(color)
