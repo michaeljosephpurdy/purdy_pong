@@ -1,7 +1,10 @@
 function love.load()
   Object = require "libraries.classic"
+  require "src.Entities"
+  entities = Entities()
   require "src.Utils"
   utils = Utils()
+  require "src.Entity"
   require "src.Player"
   require "src.Ball"
   
@@ -11,9 +14,10 @@ function love.load()
 end
 
 function love.update(dt)
+  entities:update(dt)
   redPlayer:update(dt)
   bluePlayer:update(dt)
-  ball:update(dt)
+  -- ball:update(dt)
 end
 
 function love.draw()
