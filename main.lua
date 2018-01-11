@@ -15,8 +15,6 @@ end
 
 function love.update(dt)
   entities:update(dt)
-  redPlayer:update(dt)
-  bluePlayer:update(dt)
   -- ball:update(dt)
 end
 

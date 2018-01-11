@@ -1,15 +1,13 @@
-Player = Object:extend()
+Player = Entity:extend()
+Player:implement(Entity)
 
 function Player:new(color, x, y, left, right)
+  Player.super.new(self, x, y, utils.windowWidth / utils:getPaddleWidth() * 50, color)
   self.name = color
-  self:setColor(color)
-  self.x = x
-  self.y = y
   self.left = left
   self.right = right
   self.width = utils:getPaddleWidth()
   self.height = utils:getPaddleHeight()
-  self.speed = utils.windowWidth / self.width * 50
   self.collidePoint = self.x + (self.width - self.x)
 end
 
@@ -22,6 +20,7 @@ function Player:setColor(color)
 end
 
 function Player:update(dt)
+  Player.super.update(self, dt)
   self:handleKeyboardInputs(dt)
   self:handleTouchInputs(dt)
 end
@@ -36,19 +35,22 @@ function Player:handleKeyboardInputs(dt)
     self:moveLeft(dt)
   elseif love.keyboard.isDown(self.right) then
     self:moveRight(dt)
+  else 
+    self.dx = 0
   end
 end
 
 function Player:moveLeft(dt)
   if self.x >= 0 then
-    self.x = self.x - self.speed * dt
+    self.state = "moving"
+    self.dx = -1
   end
 end
 
 function Player:moveRight(dt)
-  if self.x + self.width <= utils.windowWidth
-   then
-    self.x = self.x + self.speed * dt
+  if self.x + self.width <= utils.windowWidth then
+    self.state = "moving"
+    self.dx = 1
   end
 end
 

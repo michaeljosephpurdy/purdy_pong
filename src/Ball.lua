@@ -10,15 +10,11 @@ function Ball:new(color)
 end
 
 function Ball:update(dt)
-  self:checkForCollisions()
-  self:move(dt)
-
-  if self:couldCollideWith(redPlayer) or self:couldCollideWith(bluePlayer) then
-    self:checkForCollision(redPlayer)
-  end
+  self:handleCollisions()
+  Ball.super.update(self, dt)
 end
 
-function Ball:checkForCollisions()
+function Ball:handleCollisions()
   self:collideWithLeftWall()
   self:collideWithRightWall()
   self:collideWithPlayer(redPlayer)
@@ -39,7 +35,17 @@ end
 
 function Ball:collideWithPlayer(player)
   if self:couldCollideWith(player) then
-    
+    self:collide(player)
+  end
+end
+
+function Ball:couldCollideWith(player)
+  return (math.abs(self.y - player.y) <= 20 and math.abs(self.x - player.x ) <= 20)
+end
+
+function Ball:collide(player)
+  if (ball.x >= player.x and ball.x + ball.width <= player.x + player.width and ball.y >= player.y and ball.y + ball.height <= player.y + player.height) then
+  self:bounce()
   end
 end
 
@@ -47,11 +53,8 @@ function Ball:draw()
   love.graphics.setColor(self.color)
   love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end
+
 function Ball:bounce()
   self.dy = self.dy * -1
   self.dx = self.dx * -1
-end
-
-function Ball:couldCollideWith(player)
-  return (math.abs(self.y - player.y) <= 20 and math.abs(self.x - player.x ) <= 20)
 end
